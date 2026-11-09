@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noah Sapire | Data Science Projects</title>
+<meta name="description" content="Data science projects in lending, manufacturing, and engineering: prediction, simulation, fairness analysis, and automated machine learning.">
+<meta property="og:title" content="Noah Sapire | Data Science Projects">
+<meta property="og:description" content="Five data science projects in lending, manufacturing, and engineering, each built from raw data to a working result.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232a78d6'/%3E%3Ctext x='32' y='42' font-family='Segoe UI,Arial,sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ENS%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f7f7f4; --surface: #ffffff; --ink: #0b0b0b; --ink2: #4d4c49; --muted: #7d7b75;
+  --line: #e1e0d9; --border: rgba(11,11,11,.09); --accent: #2a78d6; --accent-ink: #1c5cab; --chip: #eaf2fc;
+  --shadow: 0 1px 2px rgba(11,11,11,.04), 0 4px 16px rgba(11,11,11,.04);
+  --shadow-hover: 0 2px 4px rgba(11,11,11,.05), 0 12px 32px rgba(11,11,11,.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #171716; --ink: #f0efec; --ink2: #c3c2b7; --muted: #8f8d86;
+    --line: #2c2c2a; --border: rgba(255,255,255,.09); --accent: #3987e5; --accent-ink: #86b6ef; --chip: #1c2633;
+    --shadow: none; --shadow-hover: 0 0 0 1px rgba(255,255,255,.08);
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent-ink); text-underline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+
+nav { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--page) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 16px; }
+.brand .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 12.5px; letter-spacing: .02em; }
+nav .links { display: flex; gap: 22px; font-size: 14.5px; }
+nav .links a { color: var(--ink2); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
+nav .links a:hover { color: var(--ink); }
+nav .links a.active { color: var(--ink); border-bottom-color: var(--accent); }
+@media (max-width: 560px) { nav .links { gap: 14px; font-size: 13.5px; } nav .links a[href="#experience"], nav .links a[href="#skills"] { display: none; } }
+
+header.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+header.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1px); background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 90% at 85% 0%, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 80% 90% at 85% 0%, #000 0%, transparent 70%); }
+header.hero .wrap { position: relative; padding-top: clamp(56px, 9vw, 96px); padding-bottom: 48px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-ink); font-weight: 600; font-size: 14px; margin: 0 0 14px; }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2fa66b; box-shadow: 0 0 0 3px color-mix(in srgb, #2fa66b 22%, transparent); }
+h1 { font-size: clamp(36px, 5.8vw, 58px); line-height: 1.06; margin: 0 0 20px; letter-spacing: -0.025em; text-wrap: balance; max-width: 820px; }
+.lede { font-size: clamp(17px, 2vw, 20px); color: var(--ink2); max-width: 680px; margin: 0 0 30px; text-wrap: pretty; }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; font-weight: 600; font-size: 14.5px; text-decoration: none; border: 1px solid var(--border); color: var(--ink); background: var(--surface); transition: transform .15s, box-shadow .15s, filter .15s; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn .arrow { transition: transform .15s; }
+.btn:hover .arrow { transform: translateX(2px); }
+
+.glance { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 44px; }
+@media (max-width: 900px) { .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) {
+  .glance { grid-template-columns: 1fr; gap: 6px; margin-top: 32px; }
+  .hero .glance a { display: flex; align-items: baseline; gap: 10px; padding: 10px 12px; }
+  .hero .glance .t { margin: 0; }
+  .hero .glance .d { display: none; }
+  .eyebrow { align-items: flex-start; } .eyebrow::before { margin-top: 6px; }
+}
+.glance a { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; text-decoration: none; color: var(--ink); box-shadow: var(--shadow); transition: transform .15s, box-shadow .15s, border-color .15s; }
+.glance a:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+.glance .n { font: 600 12px/1 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--accent-ink); }
+.glance .t { display: block; font-weight: 600; font-size: 14.5px; line-height: 1.3; margin: 6px 0 3px; }
+.glance .d { display: block; font-size: 12.5px; color: var(--muted); }
+
+section.wrap { padding-top: 56px; padding-bottom: 24px; }
+h2 { font-size: clamp(24px, 3vw, 30px); margin: 0 0 6px; letter-spacing: -0.015em; }
+.section-sub { color: var(--ink2); margin: 0 0 28px; }
+.project { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow); }
+.project:nth-of-type(even) > :last-child { order: -1; }
+@media (max-width: 820px) { .project { grid-template-columns: 1fr; padding: 22px; gap: 24px; } .project:nth-of-type(even) > :last-child { order: 0; } }
+.kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.kicker .n { font: 600 13px/1 ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--muted); }
+.tag { display: inline-block; font-size: 12.5px; font-weight: 600; color: var(--accent-ink); background: var(--chip); padding: 3px 10px; border-radius: 999px; }
+h3 { font-size: clamp(21px, 2.4vw, 25px); line-height: 1.22; margin: 0 0 10px; letter-spacing: -0.01em; }
+.summary { color: var(--ink2); margin: 0 0 20px; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 20px; }
+.stat { background: var(--page); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.stat .num { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--accent-ink); }
+.stat .lbl { font-size: 13px; color: var(--ink2); line-height: 1.35; margin-top: 4px; }
+ul.points { margin: 0 0 20px; padding: 0; list-style: none; }
+ul.points li { position: relative; padding-left: 22px; margin-bottom: 8px; }
+ul.points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); opacity: .75; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px; }
+.stack span { font-size: 12.5px; color: var(--ink2); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; background: var(--page); }
+.media { margin: 0; }
+.media + .media { margin-top: 16px; }
+.media img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--border); background: #fcfcfb; cursor: zoom-in; transition: box-shadow .15s, transform .15s; }
+.media img:hover { box-shadow: var(--shadow-hover); }
+.media figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.preview { position: relative; display: block; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; aspect-ratio: 4 / 3.3; background: var(--page); transition: box-shadow .15s; }
+.preview:hover { box-shadow: var(--shadow-hover); }
+.preview iframe { position: absolute; top: 0; left: 0; width: 200%; height: 200%; transform: scale(.5); transform-origin: 0 0; border: 0; pointer-events: none; }
+.preview .open { position: absolute; right: 10px; bottom: 10px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.note { display: flex; gap: 8px; font-size: 13.5px; color: var(--ink2); background: color-mix(in srgb, #e0a100 9%, var(--surface)); border: 1px solid color-mix(in srgb, #e0a100 28%, var(--border)); border-radius: 8px; padding: 9px 12px; margin: 0 0 20px; }
+.note::before { content: "i"; flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; display: grid; place-items: center; font: 700 11px/1 Georgia, serif; color: #fff; background: #b88400; }
+
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 4px; font-size: 16.5px; line-height: 1.3; }
+.card .meta { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+.card p { margin: 0; color: var(--ink2); font-size: 15px; }
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
+.skills > div { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); }
+.skills h4 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.skills p { margin: 0; }
+
+.contact { margin-top: 56px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: clamp(24px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; box-shadow: var(--shadow); }
+.contact h2 { margin-bottom: 4px; }
+.contact p { margin: 0; color: var(--ink2); }
+footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13.5px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+dialog.zoom { border: 0; padding: 0; background: transparent; max-width: min(1200px, 94vw); max-height: 92vh; }
+dialog.zoom::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(3px); }
+dialog.zoom img { display: block; max-width: 100%; max-height: 84vh; border-radius: 10px; background: #fcfcfb; }
+dialog.zoom p { color: #eee; font-size: 14px; margin: 10px 2px 0; }
+dialog.zoom button { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; }
+[data-repo][hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="#top"><span class="mark">NS</span>Noah Sapire</a><div class="links"><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div></div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="eyebrow">Open to new-grad data science roles · B.S. Computer Science, Union College, 2026</p>
+  <h1>I turn messy data into clear decisions.</h1>
+  <p class="lede">Five projects in lending, manufacturing, and engineering, each built from raw data to a working result and explained plainly. I'm looking for new-graduate roles in data science and analytics, and I plan to pursue a master's in computer science.</p>
+  <div class="buttons">
+    <a class="btn primary" href="#projects">See the projects <span class="arrow" aria-hidden="true">→</span></a>
+    <a class="btn" href="https://www.linkedin.com/in/noah-sapire">LinkedIn</a>
+    <a class="btn" href="mailto:noah.sapire@gmail.com">Email me</a>
+    <a class="btn" data-repo="profile" href="#">GitHub</a>
+  </div>
+  <div class="glance" aria-label="Projects at a glance">
+    <a href="#early-warning"><span class="n">01</span><span class="t">Loan Early-Warning System</span><span class="d">Finance · Live dashboard</span></a>
+    <a href="#wildfire"><span class="n">02</span><span class="t">Wildfire Detection Trade Study</span><span class="d">Engineering · Simulation</span></a>
+    <a href="#factory"><span class="n">03</span><span class="t">Factory Failure Prediction</span><span class="d">Manufacturing · ML in production</span></a>
+    <a href="#fairness"><span class="n">04</span><span class="t">Mortgage Fairness Audit</span><span class="d">Statistics · Fairness</span></a>
+    <a href="#default"><span class="n">05</span><span class="t">Loan Default Predictor</span><span class="d">Finance · Machine learning</span></a>
+  </div>
+</div></header>
+
+<main>
+<section id="projects" class="wrap">
+  <h2>Projects</h2>
+  <p class="section-sub">Every number comes from running the code. Each write-up also says what the results can't show.</p>
+
+  <article class="project" id="early-warning">
+    <div>
+      <div class="kicker"><span class="n">01</span><span class="tag">Finance · Early warning</span></div>
+      <h3>Loan Portfolio Early-Warning System</h3>
+      <p class="summary">Watches a pay-later loan business and raises an alert when something goes wrong, like fraud at one store, an approval mistake, or more customers falling behind on payments.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">22 of 24</div><div class="lbl">planted problems caught in testing</div></div>
+        <div class="stat"><div class="num">2 vs. 1,000+</div><div class="lbl">false alarms a year, vs. a basic rule</div></div>
+      </div>
+      <ul class="points">
+        <li>Tells a broken data feed apart from a real rise in missed payments, so the team doesn't chase false emergencies.</li>
+        <li>Shows the trends on an interactive dashboard.</li>
+        <li>Writes a weekly AI summary, and automatically rejects it if any number isn't in the data.</li>
+      </ul>
+      <p class="note">The loan data is simulated, with problems planted on purpose, so the system can be scored against known answers.</p>
+      <div class="stack"><span>Python</span><span>SQL</span><span>DuckDB</span><span>JavaScript</span></div>
+      <div class="buttons"><a class="btn primary" href="demo/bnpl-dashboard.html">Open the live dashboard <span class="arrow" aria-hidden="true">→</span></a><a class="btn" data-repo="bnpl" href="#">Code and write-up</a></div>
+    </div>
+    <div class="media">
+      <a class="preview" href="demo/bnpl-dashboard.html" aria-label="Open the live loan portfolio dashboard">
+        <iframe src="demo/bnpl-dashboard.html" title="Loan portfolio dashboard preview" loading="lazy" tabindex="-1"></iframe>
+        <span class="open">Open dashboard</span>
+      </a>
+    </div>
+  </article>
+
+  <article class="project" id="wildfire">
+    <div>
+      <div class="kicker"><span class="n">02</span><span class="tag">Engineering · Simulation</span></div>
+      <h3>Wildfire Detection System Trade Study</h3>
+      <p class="summary">Compares 375 ways to build a wildfire early-warning system from camera towers, drones, and satellites. It simulates 3,000 fires for each design to find which ones meet the goals within budget.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">375 designs</div><div class="lbl">each tested on the same 3,000 simulated fires</div></div>
+        <div class="stat"><div class="num">35% vs. 46%</div><div class="lbl">how often the cheapest vs. sturdiest passing design held up</div></div>
+      </div>
+      <ul class="points">
+        <li>Found that no single sensor type works alone: every passing design mixes them.</li>
+        <li>Showed that the cheapest design passes on paper with almost no margin and fails most of the time when the assumptions shift.</li>
+        <li>Recommended surveying tower sight lines and testing radio links before spending money, since those drive most of the risk.</li>
+      </ul>
+      <p class="note">All inputs are documented, illustrative assumptions. Changing one regenerates every result.</p>
+      <div class="stack"><span>Python</span><span>Monte Carlo simulation</span><span>Model-based systems engineering</span></div>
+      <div class="buttons"><a class="btn" data-repo="mission" href="#">Code and write-up</a></div>
+    </div>
+    <div>
+      <figure class="media"><img src="assets/mission-tradespace.png" alt="Scatter of 375 designs by 10-year cost and share of fires reported within an hour, with the budget line, the 90% goal, and the cost-performance frontier." loading="lazy"><figcaption>Every design, by cost and speed, with the budget and goal lines.</figcaption></figure>
+      <figure class="media"><img src="assets/mission-robustness.png" alt="Bars showing how often each of the 8 passing designs still met every requirement across 150 uncertain futures; none reaches the 80% target." loading="lazy"><figcaption>None of the 8 passing designs reaches the 80% confidence target.</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="project" id="factory">
+    <div>
+      <div class="kicker"><span class="n">03</span><span class="tag">Manufacturing · Machine learning in production</span></div>
+      <h3>Factory Failure Prediction Pipeline</h3>
+      <p class="summary">Predicts which runs on a real semiconductor production line will fail, using 590 sensor readings per run, and retrains itself automatically every two weeks.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">273 of 590</div><div class="lbl">sensors were worth keeping</div></div>
+        <div class="stat"><div class="num">0.57 vs. 0.75</div><div class="lbl">honest score vs. what a common shortcut reports</div></div>
+      </div>
+      <ul class="points">
+        <li>Found that sensor data alone gives only a weak warning, and recommended collecting machine and batch data first.</li>
+        <li>Showed that a common testing shortcut would have made the model look far better than it really is.</li>
+        <li>Built an automatic retraining process that ships a new model only when it's proven to save money.</li>
+      </ul>
+      <div class="stack"><span>Python</span><span>scikit-learn</span><span>LightGBM</span><span>GitHub Actions</span></div>
+      <div class="buttons"><a class="btn" data-repo="manufacturing" href="#">Code and write-up</a></div>
+    </div>
+    <div>
+      <figure class="media"><img src="assets/manufacturing-sensors.png" alt="Bar chart narrowing 590 recorded sensors to 562 mostly present, 446 that vary, and 273 that aren't duplicates." loading="lazy"><figcaption>From 590 sensors to the 273 worth using.</figcaption></figure>
+      <figure class="media"><img src="assets/manufacturing-catch-curve.png" alt="Curve of failures caught vs. runs inspected, riskiest first, sitting modestly above the random-inspection line." loading="lazy"><figcaption>Better than random inspection, but only modestly.</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="project" id="fairness">
+    <div>
+      <div class="kicker"><span class="n">04</span><span class="tag">Statistics · Fairness</span></div>
+      <h3>Mortgage Fairness Audit</h3>
+      <p class="summary">Checks whether 88,000 real New York mortgage applications were approved at different rates by race, ethnicity, sex, or age.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">9.7 → 5.7 pts</div><div class="lbl">Black–White approval gap, before and after accounting for finances and lender</div></div>
+        <div class="stat"><div class="num">0.85 → 0.92</div><div class="lbl">fairness score after removing one neighborhood input (1.0 = equal)</div></div>
+      </div>
+      <ul class="points">
+        <li>Showed that a model that never sees race can still treat groups unequally through neighborhood data.</li>
+        <li>Caught data that would have let a model "cheat" by seeing the outcome in advance.</li>
+        <li>Showed that the standard fairness check can pass even when one group is denied 2.4 times as often.</li>
+      </ul>
+      <p class="note">Public mortgage data has no credit scores, so the gaps flag a need for review. They aren't proof of discrimination.</p>
+      <div class="stack"><span>Python</span><span>statsmodels</span><span>LightGBM</span><span>pandas</span></div>
+      <div class="buttons"><a class="btn" data-repo="fairLending" href="#">Code and write-up</a></div>
+    </div>
+    <div>
+      <figure class="media"><img src="assets/fair-lending-gaps.png" alt="Approval gaps vs. White applicants for Black, Hispanic, Asian, and other minority applicants, shrinking as controls are added but staying below zero." loading="lazy"><figcaption>Approval gaps shrink after accounting for finances, but don't close.</figcaption></figure>
+      <figure class="media"><img src="assets/fair-lending-tradeoff.png" alt="Scatter of candidate models: those using neighborhood racial composition are most accurate but least fair." loading="lazy"><figcaption>The most accurate models were also the least fair.</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="project" id="default">
+    <div>
+      <div class="kicker"><span class="n">05</span><span class="tag">Finance · Machine learning</span></div>
+      <h3>Loan Default Predictor</h3>
+      <p class="summary">Predicts which personal loans will go unpaid, using 164,000 real loans, and runs as a web service that scores an application instantly.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">Beat the lender</div><div class="lbl">ranked risk better than the lender's own interest rates</div></div>
+        <div class="stat"><div class="num">Plain reasons</div><div class="lbl">every decline comes with its main reasons</div></div>
+      </div>
+      <ul class="points">
+        <li>Kept the model's logic common-sense, so a higher income can never make an applicant look riskier.</li>
+        <li>Warns automatically when new applicants start to look different from the ones it learned from.</li>
+        <li>Saves every decision and its reasons in a PostgreSQL database, and refuses to decide if it can't save one, so every decision can be audited.</li>
+        <li>Built to run on AWS and backed by 33 automated tests.</li>
+      </ul>
+      <div class="stack"><span>Python</span><span>LightGBM</span><span>FastAPI</span><span>SQL / PostgreSQL</span><span>AWS</span></div>
+      <div class="buttons"><a class="btn" data-repo="creditRisk" href="#">Code and write-up</a></div>
+    </div>
+    <figure class="media"><img src="assets/credit-calibration.png" alt="Calibration curve: predicted default rates by decile closely track observed default rates." loading="lazy"><figcaption>Predicted default rates match what really happened.</figcaption></figure>
+  </article>
+</section>
+
+<section id="experience" class="wrap">
+  <h2>Experience and earlier work</h2>
+  <p class="section-sub">Where I've applied these skills before.</p>
+  <div class="grid3">
+    <div class="card"><h4>Junior Software Engineer Intern</h4><p class="meta">Evolytix · Summer 2026</p><p>Built data-driven dashboards and admin tools for an education platform. Designed PostgreSQL schemas and migrated historical records into a production database.</p></div>
+    <div class="card"><h4>Programming Intern</h4><p class="meta">Advanced Radiology · Summer 2025</p><p>Built sentiment models for patient survey feedback (95% accuracy), a search tool on top of them, and a Tableau dashboard fed by a Python pipeline.</p></div>
+    <div class="card"><h4>ROS Motion Tracking Evaluation</h4><p class="meta">Project · November 2025</p><p>Rebuilt a broken ROS Noetic evaluation pipeline in Python, fixing timing and synchronization issues and enforcing ground-truth validation.</p></div>
+    <div class="card"><h4>120 Years of Campus Sports Coverage</h4><p class="meta">Project · November 2024</p><p>Scraped the Concordiensis archive and ran sentiment and trend analysis to show when hockey overtook football as a key topic.</p></div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div><h4>Languages</h4><p>Python, SQL, Java, JavaScript, C#</p></div>
+    <div><h4>Data and ML</h4><p>pandas, scikit-learn, LightGBM, statsmodels, PyTorch, regression, anomaly detection, Monte Carlo simulation</p></div>
+    <div><h4>Data engineering</h4><p>PostgreSQL, DuckDB, Supabase, data migration, data quality testing</p></div>
+    <div><h4>Delivery</h4><p>FastAPI, Next.js, React, Tableau, Power BI, pytest, GitHub Actions, Git</p></div>
+  </div>
+</section>
+<section class="wrap" id="contact">
+  <div class="contact">
+    <div><h2>Let's talk</h2><p>I'm open to new-graduate roles in data science and analytics. The fastest way to reach me is email.</p></div>
+    <div class="buttons"><a class="btn primary" href="mailto:noah.sapire@gmail.com">noah.sapire@gmail.com</a><a class="btn" href="https://www.linkedin.com/in/noah-sapire">LinkedIn</a><a class="btn" data-repo="profile" href="#">GitHub</a></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Noah Sapire · White Plains, NY</span><span>Built with plain HTML and CSS.</span></div></footer>
+
+<dialog class="zoom" id="zoom"><button type="button" aria-label="Close">×</button><img alt=""><p></p></dialog>
+
+<script>
+// Add each GitHub link here once the repositories exist. Buttons with no link stay hidden.
+const REPOS = {
+  profile: "",      // e.g. "https://github.com/your-username"
+  bnpl: "",         // e.g. "https://github.com/your-username/bnpl-risk-monitor"
+  mission: "",
+  manufacturing: "",
+  fairLending: "",
+  creditRisk: "",
+};
+document.querySelectorAll("[data-repo]").forEach(el => {
+  const url = REPOS[el.dataset.repo];
+  if (url) el.href = url; else el.hidden = true;
+});
+
+// Click a chart to see it full size.
+const zoom = document.getElementById("zoom");
+document.querySelectorAll(".media img").forEach(img => {
+  img.tabIndex = 0;
+  const open = () => {
+    zoom.querySelector("img").src = img.src;
+    zoom.querySelector("img").alt = img.alt;
+    zoom.querySelector("p").textContent = img.closest("figure")?.querySelector("figcaption")?.textContent || "";
+    zoom.showModal();
+  };
+  img.addEventListener("click", open);
+  img.addEventListener("keydown", e => { if (e.key === "Enter") open(); });
+});
+zoom.addEventListener("click", e => { if (e.target === zoom || e.target.tagName === "BUTTON") zoom.close(); });
+
+// Underline the nav link for the section on screen.
+const navLinks = [...document.querySelectorAll("nav .links a")];
+const watch = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id));
+}), { rootMargin: "-40% 0px -55% 0px" });
+["projects", "experience", "skills", "contact"].forEach(id => watch.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
